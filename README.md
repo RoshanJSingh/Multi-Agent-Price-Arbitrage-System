@@ -31,7 +31,16 @@ tests/           Unit tests for parsing, scoring, and orchestration helpers
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
+pip install -e .
 python -m deal_finder.app.gradio_dashboard
 ```
 
 External services are configured through environment variables. Copy `.env.example` to `.env` for local development.
+
+## Validation
+
+```bash
+python -m unittest discover -s tests
+```
+
+The unit tests cover data normalization, JSON scanner parsing, price extraction, ensemble fallback behavior, and planner persistence.

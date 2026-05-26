@@ -5,6 +5,7 @@ from __future__ import annotations
 from deal_finder.agents.base import Agent
 from deal_finder.agents.ensemble import EnsembleAgent
 from deal_finder.agents.memory import DealMemory
+from deal_finder.agents.messaging import MessagingAgent
 from deal_finder.agents.scanner import ScannerAgent
 from deal_finder.config import get_settings
 from deal_finder.schemas import Deal, Opportunity
@@ -19,12 +20,14 @@ class PlannerAgent(Agent):
         self,
         scanner: ScannerAgent,
         ensemble: EnsembleAgent,
+        messenger: MessagingAgent | None = None,
         memory: DealMemory | None = None,
         deal_threshold: float | None = None,
     ) -> None:
         super().__init__()
         self.scanner = scanner
         self.ensemble = ensemble
+        self.messenger = messenger or MessagingAgent()
         self.memory = memory or DealMemory()
         self.deal_threshold = get_settings().deal_threshold if deal_threshold is None else deal_threshold
 
@@ -51,5 +54,6 @@ class PlannerAgent(Agent):
             return None
 
         self.memory.write(existing + [best])
+        self.messenger.alert(best)
         return best
 

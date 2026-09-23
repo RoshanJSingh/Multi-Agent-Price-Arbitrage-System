@@ -21,7 +21,7 @@ src/deal_finder/
   evaluation/    Metrics for model and deal-quality baselines
   rag/           ChromaDB vector store and embedding pipeline
   training/      LoRA fine-tuning configuration helpers
-docs/            Architecture, evaluation, and resume alignment notes
+docs/            Architecture and evaluation notes
 tests/           Unit tests for parsing, scoring, and orchestration helpers
 ```
 
